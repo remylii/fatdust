@@ -1,0 +1,10 @@
+/vendor
+/coverage
+/logs/*
+.php_cs.cache
+.phpunit.result.cache
+
+.DS_Stores
+.AppleDouble
+Thumbs_db
+.php-version
