@@ -1,7 +1,7 @@
 <?php
-namespace EPGThread\Exception\ViewNotFoundException;
+namespace EPGThread\Exception;
 
-class ViewNotFoundException extends Exception
+class ViewNotFoundException extends \Exception
 {
     protected $message = "viewファイルが存在しない";
 }

@@ -8,7 +8,7 @@ class Application
 {
     const VIEW_DIR_PATH = __DIR__ . '/view/';
 
-    public function run(\EPGThread\Action\ActionInterface $action)
+    public function run(\EPGThread\Action\ActionAbstract $action)
     {
         $action;
         try {

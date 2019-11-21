@@ -3,7 +3,7 @@ namespace EPGThread\Action;
 
 use EPGThread\Infrastructure\Post;
 
-class Action implements ActionInterface
+class Action extends ActionAbstract
 {
     public $method;
     public $view;
@@ -28,7 +28,6 @@ class Action implements ActionInterface
 
     public function store()
     {
-        var_dump($_POST);
         $this->setView("post.php");
     }
 

@@ -1,5 +1,5 @@
 <?php
-namespace Test;
+namespace Test\Action;
 
 use PHPUnit\Framework\TestCase;
 use EPGThread\Action\FailedAction;

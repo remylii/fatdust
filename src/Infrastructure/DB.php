@@ -8,8 +8,10 @@ class DB
      */
     private static $db;
 
-    private $dbname;
+    private $driver;
     private $host;
+    private $port;
+    private $dbname;
     private $charset;
     private $username;
     private $password;

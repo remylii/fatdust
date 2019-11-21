@@ -3,7 +3,7 @@ namespace EPGThread;
 
 use EPGThread\Action\Action;
 use EPGThread\Action\FailedAction;
-use EPGThread\Action\ActionInterface;
+use EPGThread\Action\ActionAbstract;
 
 class Router
 {
@@ -29,7 +29,7 @@ class Router
         }
     }
 
-    public function mapRoutingToAction(string $http_method, string $path): ActionInterface
+    public function mapRoutingToAction(string $http_method, string $path): ActionAbstract
     {
         $http_method = ($http_method === 'HEAD') ? "GET" : $http_method;
 
@@ -40,7 +40,7 @@ class Router
         return new Action($this->action_method_routing[$path][$http_method]);
     }
 
-    public function getHttpFailedAction(): ActionInterface
+    public function getHttpFailedAction(): ActionAbstract
     {
         return new FailedAction("notFound");
     }

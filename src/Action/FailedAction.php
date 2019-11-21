@@ -1,7 +1,7 @@
 <?php
 namespace EPGThread\Action;
 
-class FailedAction implements ActionInterface
+class FailedAction extends ActionAbstract
 {
     public $method;
     public $view;
