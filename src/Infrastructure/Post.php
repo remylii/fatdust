@@ -13,7 +13,7 @@ class Post
         $this->dbh = DB::getInstance();
     }
 
-    public function getPost()
+    public function getPost(): array
     {
         $sql = 'SELECT * FROM posts';
         $stmt = $this->dbh->prepare($sql);

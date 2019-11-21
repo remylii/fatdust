@@ -7,7 +7,7 @@ class FailedAction implements ActionInterface
     public $view;
     public $view_props = [];
 
-    public function __construct(string $method)
+    public function __construct(string $method = 'default')
     {
         $this->view   = '500.php';
         $this->method = $method;

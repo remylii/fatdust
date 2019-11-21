@@ -3,6 +3,9 @@ namespace EPGThread\Infrastructure;
 
 class DB
 {
+    /**
+     * @var \PDO singleton
+     */
     private static $db;
 
     private $dbname;
@@ -25,13 +28,13 @@ class DB
     {
         $config = require_once __DIR__ . "/config.php";
 
-        $this->driver  = $config["driver"];
-        $this->host    = $config["host"];
-        $this->port    = $config["port"];
-        $this->dbname  = $config["dbname"];
-        $this->charset = $config["charset"] ?? "utf8mb4";
-        $this->username = $config["username"];
-        $this->password = $config["password"];
+        $this->driver         = $config["driver"];
+        $this->host           = $config["host"];
+        $this->port           = $config["port"];
+        $this->dbname         = $config["dbname"];
+        $this->charset        = $config["charset"] ?? "utf8mb4";
+        $this->username       = $config["username"];
+        $this->password       = $config["password"];
         $this->driver_options = $config["driver_options"];
     }
 

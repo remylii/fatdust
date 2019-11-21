@@ -10,6 +10,7 @@ class Application
 
     public function run(\EPGThread\Action\ActionInterface $action)
     {
+        $action;
         try {
             if (!method_exists($action, $action->method)) {
                 throw new CallToUndefinedMethodException();
@@ -18,11 +19,13 @@ class Application
             $action->{$action->method}();
         } catch (CallToUndefinedMethodException $e) {
             var_dump($e);
-            $action = new \EPGThread\Action\FailedAction("default");
+            $action = new \EPGThread\Action\FailedAction();
         } catch (\Throwable $e) {
             var_dump($e);
 
-            $action = new \EPGThread\Action\FailedAction("default");
+            $action = new \EPGThread\Action\FailedAction();
+        } finally {
+            $action = $action ?? new \EPGThread\Action\FailedAction();
         }
 
         try {

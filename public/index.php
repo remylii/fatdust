@@ -9,7 +9,6 @@ use EPGThread\Application;
 use EPGThread\Router;
 
 var_dump($_SERVER);
-// exit();
 
 $app = new Application($_GET, $_POST, $_COOKIE, $_SERVER);
 $router = new Router();

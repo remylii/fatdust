@@ -28,7 +28,7 @@ class Action implements ActionInterface
 
     public function store()
     {
-        var_dump($data);
+        var_dump($_POST);
         $this->setView("post.php");
     }
 
