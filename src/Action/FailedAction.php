@@ -9,6 +9,7 @@ class FailedAction implements ActionInterface
 
     public function __construct(string $method)
     {
+        $this->view   = '500.php';
         $this->method = $method;
     }
 

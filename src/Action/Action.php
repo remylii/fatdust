@@ -1,6 +1,8 @@
 <?php
 namespace EPGThread\Action;
 
+use EPGThread\Infrastructure\Post;
+
 class Action implements ActionInterface
 {
     public $method;
@@ -14,13 +16,17 @@ class Action implements ActionInterface
 
     public function index()
     {
+        $post = new Post();
+        $posts = $post->getPost();
+
         $this->setView("index.php");
         $this->setViewProps([
-            "str" => "Hi"
+            "title" => "一覧",
+            "posts" => $posts,
         ]);
     }
 
-    public function store($data = [])
+    public function store()
     {
         var_dump($data);
         $this->setView("post.php");

@@ -15,7 +15,17 @@ class Application
                 throw new CallToUndefinedMethodException();
             }
 
-            $action->{$action->method}($_POST);
+            $action->{$action->method}();
+        } catch (CallToUndefinedMethodException $e) {
+            var_dump($e);
+            $action = new \EPGThread\Action\FailedAction("default");
+        } catch (\Throwable $e) {
+            var_dump($e);
+
+            $action = new \EPGThread\Action\FailedAction("default");
+        }
+
+        try {
             $filepath = static::VIEW_DIR_PATH . $action->view;
 
             if (!file_exists($filepath)) {
@@ -23,12 +33,9 @@ class Application
             }
 
             extract($action->view_props);
-        } catch (CallToUndefinedMethodException | ViewNotFoundException $e) {
+        } catch (ViewNotFoundException $e) {
             var_dump($e);
-            $action = new \EPGThread\Action\FailedAction("default");
-        } catch (\Throwable $e) {
-            var_dump($e);
-            $action = new \EPGThread\Action\FailedAction("default");
+            $filepath = static::VIEW_DIR_PATH . '404.php';
         }
 
         // template作るならresponse作る

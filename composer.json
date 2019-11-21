@@ -16,6 +16,11 @@
       "EPGThread\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Test\\": "tests/"
+    }
+  },
   "require-dev": {
     "phpunit/phpunit": "^8.4"
   }
