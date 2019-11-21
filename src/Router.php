@@ -29,18 +29,18 @@ class Router
         }
     }
 
-    public function mapRoutingToAction(string $method, string $path): ActionInterface
+    public function mapRoutingToAction(string $http_method, string $path): ActionInterface
     {
-        $method = ($method === 'HEAD') ? "GET" : $method;
+        $http_method = ($http_method === 'HEAD') ? "GET" : $http_method;
 
-        if (!isset($this->action_method_routing[$path][$method])) {
+        if (!isset($this->action_method_routing[$path][$http_method])) {
             return $this->getHttpFailedAction();
         }
 
-        return new Action($this->action_method_routing[$path][$method]);
+        return new Action($this->action_method_routing[$path][$http_method]);
     }
 
-    public function getHttpFailedAction()
+    public function getHttpFailedAction(): ActionInterface
     {
         return new FailedAction("notFound");
     }
