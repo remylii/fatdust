@@ -14,8 +14,8 @@ class FailedActionTest extends TestCase
         $action = new FailedAction($method);
         $action->{$method}();
 
-        $this->assertEquals($method, $action->method);
-        $this->assertEquals($view, $action->view);
+        $this->assertSame($method, $action->method);
+        $this->assertSame($view, $action->view);
     }
 
     public function commonBehaviorProvider(): array

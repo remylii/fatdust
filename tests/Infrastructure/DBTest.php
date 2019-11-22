@@ -12,6 +12,6 @@ class DBTest extends TestCase
         $db1 = DB::getInstance();
         $db2 = DB::getInstance();
 
-        $this->assertEquals($db1, $db2);
+        $this->assertSame($db1, $db2);
     }
 }

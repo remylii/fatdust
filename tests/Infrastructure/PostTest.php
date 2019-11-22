@@ -10,6 +10,6 @@ class PostTest extends TestCase
     {
         $post = new Post();
         $res = $post->getPost();
-        $this->assertEquals('array', gettype($res));
+        $this->assertSame('array', gettype($res));
     }
 }
