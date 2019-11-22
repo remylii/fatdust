@@ -26,9 +26,28 @@ class Action extends ActionAbstract
         ]);
     }
 
+    /**
+     * 保存
+     * @TODO redirect message?
+     */
     public function store()
     {
         $this->setView("post.php");
+        $this->setViewProps([
+            "redirect_url" => "http://localhost:8080/"
+        ]);
+
+        $name    = (isset($_POST["author"]) && $_POST["author"] !== "") ? $_POST["author"] : null;
+        $comment = (isset($_POST["comment"]) && $_POST["comment"] !== "") ? $_POST["comment"] : null;
+
+        if (!$name || !$comment) {
+            return;
+        }
+
+        $post = new Post();
+        if (!$post->save($name, $comment)) {
+            return;
+        }
     }
 
     public function setViewProps(array $props): void

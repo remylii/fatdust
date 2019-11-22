@@ -8,8 +8,6 @@ require __DIR__ . '/../vendor/autoload.php';
 use EPGThread\Application;
 use EPGThread\Router;
 
-var_dump($_SERVER);
-
 $app = new Application($_GET, $_POST, $_COOKIE, $_SERVER);
 $router = new Router();
 

@@ -1,0 +1,163 @@
+html {
+  font-size: 16px;
+  font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+}
+
+body {
+  color: #333;
+}
+
+/* header */
+.header {
+  height: 48px;
+  background-color: #31a9ee;
+  color: #fff;
+  margin: 0 0 15px;
+}
+
+.header-title {
+  font-size: 16px;
+  padding: 16px 5%;
+}
+
+/* contents */
+.wrapper {
+  margin: 0 5% 30px;
+}
+
+.section-title {
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 25px;
+  padding: 5px;
+  border-left: 5px solid #aaa;
+}
+
+.section-title.section-title-light {
+  border-left-color: #03ba1e;
+}
+
+.section-description {
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  margin-bottom: 25px;
+}
+
+/* thread contents */
+.thread {
+  margin: 0 7px 20px;
+}
+
+.thread-panel::after {
+  display: block;
+  content: "";
+  margin: 25px 5px;
+  border-bottom: 1px dotted #999;
+}
+
+.thread-panel:last-child::after {
+  margin: 50px 0 30px;
+  border-bottom: 1px solid #777;
+}
+
+.thread-panel .thread-caption {
+  font-size: 14px;
+  line-height: 16px;
+  margin-bottom: 10px;
+}
+.thread-panel .thread-caption .thread-author {
+  display: inline-block;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}
+
+.thread-panel .thread-caption .thread-datetime {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 0;
+  padding-left: 25px;
+}
+
+.thread-panel .thread-body {
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+}
+
+/* post contents */
+.post {
+  margin: 0 7px 30px;
+}
+
+.post-panel {
+  width: 100%;
+}
+
+.post-field {
+  margin-bottom: 10px;
+}
+
+.post-field .post-field-label {
+  display: block;
+  font-size: 12px;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.post-field .post-field-form {
+  display: block;
+  width: 300px;
+  height: 30px;
+  padding: 1px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #496057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  text-indent: 0.5em;
+}
+
+.post-field-form-textarea {
+  display: block;
+  width: 90%;
+  height: auto;
+  padding: 1px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #496057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  text-indent: 0.5em;
+  letter-spacing: 0.1em;
+}
+
+.post-submit {
+  margin: 35px 0 15px;
+  text-align: center;
+}
+
+.post-btn {
+  /* display: block; */
+  font-size: 16px;
+  font-weight: bold;
+  width: 270px;
+  height: 50px;
+  line-height: 47px;
+  color: #fff;
+  background-color: #03ba1e;
+  text-align: center;
+  border: 1px solid #03ba1e;
+  border-radius: 25px;
+}
+
+/* footer */
+.footer {
+  margin-top: 100px;
+  padding: 0;
+}
