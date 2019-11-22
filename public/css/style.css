@@ -161,3 +161,7 @@ body {
   margin-top: 100px;
   padding: 0;
 }
+
+.disabled-action {
+  pointer-events: none;
+}
