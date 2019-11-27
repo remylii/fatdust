@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.css">
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/app.js" defer></script>
@@ -16,7 +17,7 @@
     <div class="wrapper">
         <main>
             <h2 class="section-title section-title-light">投稿一覧</h2>
-            <section class="thread">
+            <section id="thread-list" class="thread">
                 <?php if (count($posts) === 0): ?>
                 <div class="thread-panel">
                     <div class="thread-body">まだない</div>
@@ -25,11 +26,22 @@
                 <?php foreach ($posts as $post): ?>
                 <div class="thread-panel">
                     <div class="thread-caption">
-                        <span class="thread-author"><?php echo $post['id']; ?>:&emsp;<?php echo htmlspecialchars($post["name"]); ?></span><span
-                            class="thread-datetime">2019/10/30 14:30:00</span>
+                        <span class="thread-author"><a href="#" class="js-toggle-trigger"
+                                data-send="<?php echo $post['uuid']; ?>"><?php echo $post['id']; ?></a>:&emsp;<?php echo htmlspecialchars($post["name"]); ?></span><span
+                            class="thread-datetime"><?php echo $post['posting_datetime']; ?></span>
+                    </div>
+                    <div class="thread-extra-body hidden"
+                        data-reciever="<?php echo $post['uuid']; ?>">
+                        <form action="/delete" method="POST" class="delete-comment">
+                            <input type="hidden" name="id"
+                                value="<?php echo $post['id']; ?>">
+                            <label for="delete_password">パスワード</label> <input type="password" name="delete_password"
+                                class="post-field-form-inline" required>
+                            <input type="submit" class="post-btn-text" value="コメントを消す">
+                        </form>
                     </div>
                     <div class="thread-body">
-                        <?php echo nl2br(htmlspecialchars($post['comment'])); ?>
+                        <?php echo ($post["deleted_at"]) ? "このコメントは削除されました" : nl2br(htmlspecialchars($post['comment'])); ?>
                     </div>
                 </div>
                 <?php endforeach; ?>
@@ -40,10 +52,14 @@
             <h2 class="section-title section-title-light">投稿する</h2>
             <div class="section-description">公序良俗を守りましょう</div>
             <div class="post-panel">
-                <form action="/post" method="POST">
+                <form action="/post" method="POST" class="comment-post">
                     <div class="post-field">
                         <p class="post-field-label">名前*</p>
                         <input name="author" type="text" class="post-field-form" required>
+                    </div>
+                    <div class="post-field">
+                        <p class="post-field-label">パスワード*</p>
+                        <input name="comment-password" type="password" class="post-field-form" required>
                     </div>
                     <div class="post-field">
                         <p class="post-field-label">本文*</p>

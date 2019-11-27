@@ -37,15 +37,42 @@ class Action extends ActionAbstract
             "redirect_url" => "http://localhost:8080/"
         ]);
 
-        $name    = (isset($_POST["author"]) && $_POST["author"] !== "") ? $_POST["author"] : null;
-        $comment = (isset($_POST["comment"]) && $_POST["comment"] !== "") ? $_POST["comment"] : null;
+        $name     = (isset($_POST["author"]) && $_POST["author"] !== "") ? $_POST["author"] : null;
+        $comment  = (isset($_POST["comment"]) && $_POST["comment"] !== "") ? $_POST["comment"] : null;
+        $password = (isset($_POST["comment-password"]) && $_POST["comment-password"] !== "") ? $_POST["comment-password"] : null;
 
-        if (!$name || !$comment) {
+        if (!$name || !$comment || !$password) {
             return;
         }
 
         $post = new Post();
-        if (!$post->save($name, $comment)) {
+        if (!$post->saveNewPost($name, $comment, $password)) {
+            \error_log("Failed: saveNewPost");
+            return;
+        }
+    }
+
+    /**
+     * 削除
+     */
+    public function delete()
+    {
+        $this->setView("delete.php");
+        $this->setViewProps([
+            'redirect_url' => "http://localhost:8080/"
+        ]);
+
+        $id  = (isset($_POST["id"]) && $_POST["id"] !== "") ? $_POST["id"] : null;
+        $password = (isset($_POST["delete_password"]) && $_POST["delete_password"] !== "") ? $_POST["delete_password"] : null;
+
+        if (!$id || !$password) {
+            error_log("POST ねぇ");
+            return;
+        }
+
+        $post = new Post();
+        if (!$post->deletePost($id, $password)) {
+            \error_log("Failed deletePost");
             return;
         }
     }

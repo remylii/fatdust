@@ -26,6 +26,23 @@ class DB
         return self::$db;
     }
 
+    public static function getDataType($val)
+    {
+        $type = gettype($val);
+        switch ($type) {
+            case "string":
+                return \PDO::PARAM_STR;
+            case "integer":
+                return \PDO::PARAM_INT;
+            case "boolean":
+                return \PDO::PARAM_BOOL;
+            case "NULL":
+                return \PDO::PARAM_NULL;
+            default:
+                return \PDO::PARAM_STR;
+        }
+    }
+
     private function __construct()
     {
         $config = require_once __DIR__ . "/config.php";

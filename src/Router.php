@@ -13,6 +13,7 @@ class Router
     protected $routing_map = [
         ["GET",  "/",     "index"],
         ["POST", "/post", "store"],
+        ["POST", "/delete", "delete"]
     ];
 
     /**

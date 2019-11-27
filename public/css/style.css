@@ -5,6 +5,8 @@ html {
 
 body {
   color: #333;
+  line-height: 1.5;
+  letter-spacing: normal;
 }
 
 /* header */
@@ -82,6 +84,13 @@ body {
   font-size: 15px;
   letter-spacing: 0.1em;
   line-height: 1.4;
+  margin-bottom: 15px;
+}
+
+.thread-panel .thread-extra-body {
+  font-size: 13px;
+  line-height: 1.4;
+  margin-bottom: 15px;
 }
 
 /* post contents */
@@ -106,7 +115,7 @@ body {
 
 .post-field .post-field-form {
   display: block;
-  width: 300px;
+  width: 70%;
   height: 30px;
   padding: 1px;
   font-size: 14px;
@@ -137,6 +146,20 @@ body {
   letter-spacing: 0.1em;
 }
 
+.post-field-form-inline {
+  display: inline-block;
+  padding: 1px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #496057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  text-indent: 0.5em;
+}
+
 .post-submit {
   margin: 35px 0 15px;
   text-align: center;
@@ -156,6 +179,19 @@ body {
   border-radius: 25px;
 }
 
+.post-btn-text {
+  font-size: 13px;
+  cursor: pointer;
+  border: none;
+  color: #cd3d3d;
+  background-color: #fff;
+  text-decoration: underline;
+}
+
+.post-btn-text:hover {
+  opacity: 0.5;
+}
+
 /* footer */
 .footer {
   margin-top: 100px;
@@ -164,4 +200,9 @@ body {
 
 .disabled-action {
   pointer-events: none;
+}
+
+/* common */
+.hidden {
+  display: none;
 }
