@@ -6,7 +6,7 @@ use EPGThread\Router;
 
 class RouterTest extends TestCase
 {
-    private $setting_routing_count = 2;
+    private $setting_routing_count = 3;
 
     public function testRoutingMap()
     {
