@@ -18,6 +18,34 @@
         <main>
             <h2 class="section-title section-title-light">投稿一覧</h2>
             <section id="thread-list" class="thread">
+                <ul class="pagination-list">
+                    <li>
+                        <a href="/">最新</a>
+                    </li>
+                    <?php if (!$latest && $current != 1): ?>
+                    <li>
+                        <a
+                            href="/?page=<?php echo($current - 1); ?>">&lt;
+                            prev</a>
+                    </li>
+                    <?php endif; ?>
+                    <?php if ($latest): ?>
+                    <li>
+                        <a href="/?page=1">old</a>
+                    </li>
+                    <?php else: ?>
+                    <li>
+                        <span><?php echo $current; ?></span>
+                    </li>
+                    <?php endif; ?>
+                    <?php if ($current < $last): ?>
+                    <li>
+                        <a
+                            href="/?page=<?php echo($current + 1); ?>">next
+                            &gt;</a>
+                    </li>
+                    <?php endif; ?>
+                </ul>
                 <?php if (count($posts) === 0): ?>
                 <div class="thread-panel">
                     <div class="thread-body">まだない</div>
@@ -30,6 +58,7 @@
                                 data-send="<?php echo $post['uuid']; ?>"><?php echo $post['id']; ?></a>:&emsp;<?php echo htmlspecialchars($post["name"]); ?></span><span
                             class="thread-datetime"><?php echo $post['posting_datetime']; ?></span>
                     </div>
+                    <?php if (is_null($post['deleted_at'])) : ?>
                     <div class="thread-extra-body hidden"
                         data-reciever="<?php echo $post['uuid']; ?>">
                         <form action="/delete" method="POST" class="delete-comment">
@@ -40,6 +69,7 @@
                             <input type="submit" class="post-btn-text" value="コメントを消す">
                         </form>
                     </div>
+                    <?php endif; ?>
                     <div class="thread-body">
                         <?php echo ($post["deleted_at"]) ? "このコメントは削除されました" : nl2br(htmlspecialchars($post['comment'])); ?>
                     </div>

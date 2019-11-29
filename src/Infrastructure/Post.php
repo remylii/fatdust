@@ -3,8 +3,13 @@ namespace EPGThread\Infrastructure;
 
 use EPGThread\Infrastructure\DB;
 
+/**
+ * repository作るか
+ */
 class Post
 {
+    const LiMIT = 2;
+
     /** @var \PDO */
     protected $dbh;
 
@@ -13,14 +18,41 @@ class Post
         $this->dbh = DB::getInstance();
     }
 
-    public function getPost(): array
+    public function getPost($latest = false, $page): array
     {
+        $offset = self::LiMIT * ($page - 1);
         $sql = 'SELECT id, uuid, name, comment, posting_datetime, deleted_at FROM posts';
+        $sql .= ($latest) ? " ORDER BY ID DESC " : " ORDER BY ID ASC ";
+        $sql .= "LIMIT " . $offset . ', ' . self::LiMIT;
+
         $stmt = $this->dbh->prepare($sql);
         $stmt->execute();
         $res = $stmt->fetchAll();
 
-        return $res;
+        return ($latest) ? array_reverse($res) : $res;
+    }
+
+    public function getPostWithPagination($latest = false, $page = 1): array
+    {
+        $sql = 'SELECT COUNT(id) as cnt FROM posts';
+        $stmt = $this->dbh->query($sql);
+        $rowCount = $stmt->fetchColumn(0);
+        $pagination = [
+            "current" => $page,
+            "limit"   => self::LiMIT,
+            "last"    => ceil($rowCount / self::LiMIT),
+        ];
+
+        $rows = $this->getPost($latest, $page);
+
+        return [
+            "pagination" => [
+                "current" => $page,
+                "limit"   => self::LiMIT,
+                "last"    => ceil($rowCount / self::LiMIT),
+            ],
+            "rows" => $rows
+        ];
     }
 
     public function saveNewPost(string $name, string $comment, string $password): bool

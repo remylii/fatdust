@@ -16,13 +16,24 @@ class Action extends ActionAbstract
 
     public function index()
     {
+        $latest = true;
+        $page   = 1;
+        if (isset($_GET["page"]) && $_GET["page"] !== "" && (int)$_GET["page"] !== 0) {
+            $latest = false;
+            $page   = (int)$_GET["page"];
+        }
+
         $post = new Post();
-        $posts = $post->getPost();
+        $posts = $post->getPostWithPagination($latest, $page);
 
         $this->setView("index.php");
         $this->setViewProps([
-            "title" => "一覧",
-            "posts" => $posts,
+            "title"   => "一覧",
+            "posts"   => $posts["rows"],
+            "latest"  => $latest,
+            "last"    => $posts["pagination"]["last"],
+            "limit"   => $posts["pagination"]["limit"],
+            "current" => $posts["pagination"]["current"],
         ]);
     }
 
@@ -66,7 +77,7 @@ class Action extends ActionAbstract
         $password = (isset($_POST["delete_password"]) && $_POST["delete_password"] !== "") ? $_POST["delete_password"] : null;
 
         if (!$id || !$password) {
-            error_log("POST ねぇ");
+            error_log("Empty POST parameters");
             return;
         }
 

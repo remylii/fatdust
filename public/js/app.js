@@ -30,7 +30,7 @@
         e.preventDefault();
         const target = e.target.dataset.send;
         const receiver = threadSection.querySelector(`[data-reciever=${target}]`);
-        receiver.classList.toggle("hidden");
+        if (receiver) receiver.classList.toggle("hidden");
       });
     });
   }
