@@ -54,8 +54,8 @@
                 <?php foreach ($posts as $post): ?>
                 <div class="thread-panel">
                     <div class="thread-caption">
-                        <span class="thread-author"><a href="#" class="js-toggle-trigger"
-                                data-send="<?php echo $post['uuid']; ?>"><?php echo $post['id']; ?></a>:&emsp;<?php echo htmlspecialchars($post["name"]); ?></span><span
+                        <span class="thread-author"><span class="js-toggle-trigger"
+                                data-send="<?php echo $post['uuid']; ?>"><?php echo $post['id']; ?></span>:&emsp;<?php echo htmlspecialchars($post["name"]); ?></span><span
                             class="thread-datetime"><?php echo $post['posting_datetime']; ?></span>
                     </div>
                     <?php if (is_null($post['deleted_at'])) : ?>
