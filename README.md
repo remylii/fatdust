@@ -9,6 +9,13 @@
 $ composer start
 ```
 
+## Configuration
+
+### DB settings
+
+create `Infrastructure/config.php` .
+config.example.php is example.
+
 ### Routing
 
 ```php
@@ -24,11 +31,16 @@ $routing_map = [
 ```php
 function someMethod()
 {
-    // ...
-
-    $this->setView('some_method_view_filename');
-    $this->setViewProps(["title" => "some method title"]);
+  return new TemplateResponse();
 }
+```
+
+## Migrations
+
+This is work only create `.sql` file.
+
+```
+$ ./migrations/create.sql {table_name}
 ```
 
 ## License
