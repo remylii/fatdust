@@ -67,6 +67,15 @@ body {
   line-height: 16px;
   margin-bottom: 10px;
 }
+
+.thread-panel .thread-caption .thread-id {
+  color: #369;
+}
+.thread-panel .thread-caption .thread-id:hover {
+  color: #ae508d;
+  cursor: pointer;
+}
+
 .thread-panel .thread-caption .thread-author {
   display: inline-block;
   font-weight: bold;

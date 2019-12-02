@@ -4,6 +4,11 @@
 
 ## Usage
 
+```
+# build-in web server
+$ composer start
+```
+
 ### Routing
 
 ```php
