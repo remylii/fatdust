@@ -1,19 +1,31 @@
 <?php
 namespace EPGThread\Action;
 
+use EPGThread\Response\TemplateResponse;
 use EPGThread\Infrastructure\Post;
 
-class Action extends ActionAbstract
+class Action implements ActionInterface
 {
+    /** @var string */
     public $method;
-    public $view;
-    public $view_props = [];
 
     public function __construct(string $method)
     {
+        if (!method_exists($this, $method)) {
+            throw new \OutOfBoundsException();
+        }
+
         $this->method = $method;
     }
 
+    public function resolveResponse()
+    {
+        return $this->{$this->method}();
+    }
+
+    /**
+     * 一覧
+     */
     public function index()
     {
         $latest = true;
@@ -26,8 +38,7 @@ class Action extends ActionAbstract
         $post = new Post();
         $posts = $post->getPostWithPagination($latest, $page);
 
-        $this->setView("index.php");
-        $this->setViewProps([
+        return new TemplateResponse("index.php", [
             "title"   => "一覧",
             "posts"   => $posts["rows"],
             "latest"  => $latest,
@@ -39,28 +50,29 @@ class Action extends ActionAbstract
 
     /**
      * 保存
-     * @TODO redirect message?
      */
     public function store()
     {
-        $this->setView("post.php");
-        $this->setViewProps([
+        $view  = "post.php";
+        $props = [
             "redirect_url" => "http://localhost:8080/"
-        ]);
+        ];
 
         $name     = (isset($_POST["author"]) && $_POST["author"] !== "") ? $_POST["author"] : null;
         $comment  = (isset($_POST["comment"]) && $_POST["comment"] !== "") ? $_POST["comment"] : null;
         $password = (isset($_POST["comment-password"]) && $_POST["comment-password"] !== "") ? $_POST["comment-password"] : null;
 
         if (!$name || !$comment || !$password) {
-            return;
+            return new TemplateResponse($view, $props);
         }
 
         $post = new Post();
         if (!$post->saveNewPost($name, $comment, $password)) {
-            \error_log("Failed: saveNewPost");
-            return;
+            error_log("Failed: saveNewPost");
+            return new TemplateResponse($view, $props);
         }
+
+        return new TemplateResponse($view, $props);
     }
 
     /**
@@ -68,33 +80,25 @@ class Action extends ActionAbstract
      */
     public function delete()
     {
-        $this->setView("delete.php");
-        $this->setViewProps([
+        $view  = "delete.php";
+        $props = [
             'redirect_url' => "http://localhost:8080/"
-        ]);
+        ];
 
         $id  = (isset($_POST["id"]) && $_POST["id"] !== "") ? $_POST["id"] : null;
         $password = (isset($_POST["delete_password"]) && $_POST["delete_password"] !== "") ? $_POST["delete_password"] : null;
 
         if (!$id || !$password) {
             error_log("Empty POST parameters");
-            return;
+            return new TemplateResponse($view, $props);
         }
 
         $post = new Post();
         if (!$post->deletePost($id, $password)) {
-            \error_log("Failed deletePost");
-            return;
+            error_log("Failed deletePost");
+            return new TemplateResponse($view, $props);
         }
-    }
 
-    public function setViewProps(array $props): void
-    {
-        $this->view_props = $props;
-    }
-
-    public function setView(string $view): void
-    {
-        $this->view = $view;
+        return new TemplateResponse($view, $props);
     }
 }

@@ -57,15 +57,15 @@ class Post
 
     public function saveNewPost(string $name, string $comment, string $password): bool
     {
+        $uuid     = uniqid("posts");
+        $datetime = date("Y-m-d H:i:s", time());
+
+        $params = [
+            $uuid, $name, $comment, password_hash($password, PASSWORD_BCRYPT), $datetime, $datetime
+        ];
+
         $this->dbh->beginTransaction();
         try {
-            $uuid     = uniqid("posts");
-            $datetime = date("Y-m-d H:i:s", time());
-
-            $params = [
-                $uuid, $name, $comment, password_hash($password, PASSWORD_BCRYPT), $datetime, $datetime
-            ];
-
             $sql = "INSERT INTO posts (uuid, name, comment, password, posting_datetime, created_at) VALUES ";
             $sql .= "(" . implode(", ", array_fill(0, count($params), "?")) . ")";
             $stmt = $this->dbh->prepare($sql);
@@ -108,6 +108,7 @@ class Post
         }
 
         unset($stmt);
+
         $this->dbh->beginTransaction();
         try {
             $datetime = date("Y-m-d H:i:s", time());

@@ -15,6 +15,7 @@ $router = new Router();
 
 $path = isset($_SERVER["PATH_INFO"]) ? $_SERVER["PATH_INFO"] : "/";
 $action = $router->mapRoutingToAction($_SERVER["REQUEST_METHOD"], $path);
-$app->run($action);
+$response = $app->run($action);
+$response->render();
 
 exit();
