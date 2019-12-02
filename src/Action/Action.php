@@ -55,7 +55,7 @@ class Action implements ActionInterface
     {
         $view  = "post.php";
         $props = [
-            "redirect_url" => "http://localhost:8080/"
+            "redirect_url" => $_SERVER['HTTP_REFERER'] ?? "/"
         ];
 
         $name     = (isset($_POST["author"]) && $_POST["author"] !== "") ? $_POST["author"] : null;
@@ -82,7 +82,7 @@ class Action implements ActionInterface
     {
         $view  = "delete.php";
         $props = [
-            'redirect_url' => "http://localhost:8080/"
+            "redirect_url" => $_SERVER['HTTP_REFERER'] ?? "/"
         ];
 
         $id  = (isset($_POST["id"]) && $_POST["id"] !== "") ? $_POST["id"] : null;
