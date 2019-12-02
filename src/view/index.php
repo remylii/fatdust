@@ -55,15 +55,15 @@
                 <div class="thread-panel">
                     <div class="thread-caption">
                         <span class="thread-author"><span class="thread-id js-toggle-trigger"
-                                data-send="<?php echo $post['uuid']; ?>"><?php echo $post['id']; ?></span>&emsp;<?php echo htmlspecialchars($post["name"]); ?></span><span
-                            class="thread-datetime"><?php echo $post['posting_datetime']; ?></span>
+                                data-send="<?php echo $post->uuid; ?>"><?php echo $post->id; ?></span>&emsp;<?php echo htmlspecialchars($post->name); ?></span><span
+                            class="thread-datetime"><?php echo $post->posting_datetime; ?></span>
                     </div>
-                    <?php if (is_null($post['deleted_at'])) : ?>
+                    <?php if (is_null($post->deleted_at)) : ?>
                     <div class="thread-extra-body hidden"
-                        data-reciever="<?php echo $post['uuid']; ?>">
+                        data-reciever="<?php echo $post->uuid; ?>">
                         <form action="/delete" method="POST" class="delete-comment">
                             <input type="hidden" name="id"
-                                value="<?php echo $post['id']; ?>">
+                                value="<?php echo $post->id; ?>">
                             <label for="delete_password">パスワード</label> <input type="password" name="delete_password"
                                 class="post-field-form-inline" required>
                             <input type="submit" class="post-btn-text" value="コメントを消す">
@@ -71,7 +71,7 @@
                     </div>
                     <?php endif; ?>
                     <div class="thread-body">
-                        <?php echo ($post["deleted_at"]) ? "このコメントは削除されました" : nl2br(htmlspecialchars($post['comment'])); ?>
+                        <?php echo ($post->deleted_at) ? "このコメントは削除されました" : nl2br(htmlspecialchars($post->comment)); ?>
                     </div>
                 </div>
                 <?php endforeach; ?>

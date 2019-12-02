@@ -8,7 +8,7 @@ use EPGThread\Infrastructure\DB;
  */
 class Post
 {
-    const LiMIT = 2;
+    const LiMIT = 3;
 
     /** @var \PDO */
     protected $dbh;
@@ -18,7 +18,7 @@ class Post
         $this->dbh = DB::getInstance();
     }
 
-    public function getPost($latest = false, $page): array
+    public function getPost($latest = false, $page = 1): array
     {
         $offset = self::LiMIT * ($page - 1);
         $sql = 'SELECT id, uuid, name, comment, posting_datetime, deleted_at FROM posts';
@@ -27,7 +27,7 @@ class Post
 
         $stmt = $this->dbh->prepare($sql);
         $stmt->execute();
-        $res = $stmt->fetchAll();
+        $res = $stmt->fetchAll(\PDO::FETCH_CLASS);
 
         return ($latest) ? array_reverse($res) : $res;
     }
