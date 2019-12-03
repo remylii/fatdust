@@ -2,7 +2,7 @@
 namespace Test\Infrastructure;
 
 use PHPUnit\Framework\TestCase;
-use EPGThread\Infrastructure\Post;
+use EPGThread\Repository\Post;
 
 class PostTest extends TestCase
 {

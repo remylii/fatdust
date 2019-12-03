@@ -8,12 +8,8 @@ class SessionManager
 {
     public function __construct()
     {
-        if (isset($_SESSION)) {
-            session_regenerate_id();
-        }
-
-        if (session_start() === false) {
-            throw new \Exception("セッションが開始できない");
+        if (@session_start() === false) {
+            // throw new \Exception("セッションが開始できない");
         }
     }
 
