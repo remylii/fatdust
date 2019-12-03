@@ -1,13 +1,16 @@
 <?php
 namespace EPGThread\Action;
 
+use EPGThread\Service\SessionManager as Session;
 use EPGThread\Response\TemplateResponse;
-use EPGThread\Infrastructure\Post;
+use EPGThread\Repository\Post;
 
 class Action implements ActionInterface
 {
     /** @var string */
     public $method;
+
+    public $session;
 
     public function __construct(string $method)
     {
@@ -16,6 +19,7 @@ class Action implements ActionInterface
         }
 
         $this->method = $method;
+        $this->session = new Session();
     }
 
     public function resolveResponse()
@@ -45,6 +49,8 @@ class Action implements ActionInterface
             "last"    => $posts["pagination"]["last"],
             "limit"   => $posts["pagination"]["limit"],
             "current" => $posts["pagination"]["current"],
+            "redirect_message" => $this->session->get("redirect_message"),
+            "errors"  => $this->session->get("errors"),
         ]);
     }
 
@@ -63,14 +69,27 @@ class Action implements ActionInterface
         $password = (isset($_POST["comment-password"]) && $_POST["comment-password"] !== "") ? $_POST["comment-password"] : null;
 
         if (!$name || !$comment || !$password) {
+            $this->session->flash("errors", [
+                [
+                    "message" => "項目がたりません"
+                ]
+            ]);
             return new TemplateResponse($view, $props);
         }
 
         $post = new Post();
         if (!$post->saveNewPost($name, $comment, $password)) {
             error_log("Failed: saveNewPost");
+            $this->session->flash("errors", [
+                [
+                    "message" => "Failed: post"
+                ]
+            ]);
             return new TemplateResponse($view, $props);
         }
+
+        // session
+        $this->session->flash("redirect_message", "投稿が完了しました");
 
         return new TemplateResponse($view, $props);
     }
@@ -90,15 +109,22 @@ class Action implements ActionInterface
 
         if (!$id || !$password) {
             error_log("Empty POST parameters");
+            $this->session->flash("errors", [
+                ["message" => "項目がたりません"]
+            ]);
             return new TemplateResponse($view, $props);
         }
 
         $post = new Post();
         if (!$post->deletePost($id, $password)) {
             error_log("Failed deletePost");
+            $this->session->falsh("errors", [
+                ["message" => "Failed: delete post"]
+            ]);
             return new TemplateResponse($view, $props);
         }
 
+        $this->session->flash("redirect_message", "投稿を削除しました");
         return new TemplateResponse($view, $props);
     }
 }

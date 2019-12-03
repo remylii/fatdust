@@ -1,5 +1,5 @@
 <?php
-namespace EPGThread\Infrastructure;
+namespace EPGThread\Repository;
 
 use EPGThread\Infrastructure\DB;
 
@@ -93,11 +93,11 @@ class Post
             $stmt->bindValue(":id", $id, \PDO::PARAM_INT);
             $stmt->execute();
 
-            $target = $stmt->fetchObject(__CLASS__);
-
-            if (!$target || $stmt->rowCount() !== 1) {
+            if ($stmt->rowCount() !== 1) {
                 throw new \OutOfRangeException("違くない？");
             }
+
+            $target = $stmt->fetchObject(__CLASS__);
 
             if (!password_verify($password, $target->password)) {
                 throw new \DomainException("パスワード違くない？");

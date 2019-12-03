@@ -16,6 +16,21 @@
     </header>
     <div class="wrapper">
         <main>
+            <?php if ($redirect_message): ?>
+            <div class="c-notice c-notice__success">
+                <?php echo $redirect_message; ?>
+            </div>
+            <?php endif; ?>
+            <?php if ($errors): ?>
+            <div class="c-notice c-notice__error">
+                <?php foreach ($errors as $error): ?>
+                <p>
+                    <?php echo $error["message"]; ?>
+                </p>
+                <?php endforeach; ?>
+            </div>
+            <?php endif; ?>
+
             <h2 class="section-title section-title-light">投稿一覧</h2>
             <section id="thread-list" class="thread">
                 <ul class="pagination-list">
