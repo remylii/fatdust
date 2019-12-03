@@ -13,7 +13,8 @@ use EPGThread\Router;
 $app = new Application($_GET, $_POST, $_COOKIE, $_SERVER);
 $router = new Router();
 
-$path = isset($_SERVER["PATH_INFO"]) ? $_SERVER["PATH_INFO"] : "/";
+// 真面目にやるならREQUEST_URIパースする
+$path = isset($_SERVER["PATH_INFO"]) ? $_SERVER["PATH_INFO"] : $_SERVER["REQUEST_URI"];
 $action = $router->mapRoutingToAction($_SERVER["REQUEST_METHOD"], $path);
 $response = $app->run($action);
 $response->render();

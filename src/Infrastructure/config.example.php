@@ -1,11 +1,11 @@
 <?php
 return [
     "driver"   => "mysql",
-    "host"     => "localhost",
+    "host"     => "micro_db",
     "port"     => 3306,
-    "dbname"   => "localmydatabase",
+    "dbname"   => "my_database",
     "charset"  => "utf8mb4",
     "username" => "root",
-    "password" => "password",
+    "password" => "root_password",
     "driver_options" => [],
 ];

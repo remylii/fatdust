@@ -7,6 +7,10 @@
 ```
 # build-in web server
 $ composer start
+
+# use docker-compose.  localhost:8001
+$ docker-compose build
+$ docker-compose up
 ```
 
 ## Configuration
@@ -37,7 +41,7 @@ function someMethod()
 
 ## Migrations
 
-This is work only create `.sql` file.
+This is work only create `.sql` file. If you use db, you execute file yourself.
 
 ```
 $ ./migrations/create.sql {table_name}

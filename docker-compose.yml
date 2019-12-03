@@ -1,0 +1,39 @@
+version: "3.3"
+
+services:
+  micro_web:
+    build:
+      context: .
+      dockerfile: ./Docker/DockerfileWeb
+    container_name: micro_web
+    depends_on:
+      - micro_app
+      - micro_db
+    ports:
+      - 8001:80
+    environment:
+      TZ: Asia/Tokyo
+    volumes:
+      - ./public:/var/www/html
+  micro_app:
+    build:
+      context: .
+      dockerfile: ./Docker/DockerfileApp
+    container_name: micro_app
+    environment:
+      TZ: Asia/Tokyo
+    volumes:
+      - .:/var/www/html
+  micro_db:
+    build:
+      context: .
+      dockerfile: ./Docker/DockerfileDB
+    container_name: micro_db
+    ports:
+      - 3306:3306
+    environment:
+      TZ: Asia/Tokyo
+      MYSQL_DATABASE: my_database
+      MYSQL_USER: db_user
+      MYSQL_PASSWORD: db_password
+      MYSQL_ROOT_PASSWORD: root_password
