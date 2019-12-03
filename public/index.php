@@ -15,6 +15,9 @@ $router = new Router();
 
 // 真面目にやるならREQUEST_URIパースする
 $path = isset($_SERVER["PATH_INFO"]) ? $_SERVER["PATH_INFO"] : $_SERVER["REQUEST_URI"];
+if (preg_match('/^\/\?/', $path, $res)) {
+    $path = "/";
+}
 $action = $router->mapRoutingToAction($_SERVER["REQUEST_METHOD"], $path);
 $response = $app->run($action);
 $response->render();
